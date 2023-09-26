@@ -2,14 +2,14 @@ import Member, { member } from "../models/Member.model";
 import CustomError from "../errors/custom_error";
 
 export default {
-  async addMember(dto: member) {
+  async addMember(dto: any) {
     try {
       const newMember = await Member.create({
         email: dto.email,
       });
-      return newMember;
+      return newMember.toJSON();
     } catch (error: any) {
-      if (error.code == "E11000") {
+      if (error.code == "11000") {
         throw new CustomError("member already exists", 409);
       } else {
         throw new CustomError(error.message, 500);

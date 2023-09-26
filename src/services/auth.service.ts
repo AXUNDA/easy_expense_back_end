@@ -39,10 +39,11 @@ export default {
       });
 
       delete newUser.password;
-      const token = await this.sign(newUser);
-      return { token, ...newUser };
+      const token = await this.sign(newUser.toJSON());
+      return { token, ...omit(newUser!.toJSON(), "password") };
     } catch (error: any) {
-      if (error.code == "E11000") {
+      console.log(error);
+      if (error.code == "11000") {
         throw new CustomError("user already exists", 409);
       } else {
         throw new CustomError(error.message, 500);

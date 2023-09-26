@@ -13,7 +13,7 @@ export default {
   },
   async removeMember(req: Request, res: Response, next: NextFunction) {
     try {
-      await memberService.removeMember(req.body.id);
+      await memberService.removeMember(req.params.id);
       return res.status(200).json({
         success: true,
         status: "removed",
