@@ -14,3 +14,4 @@ const MemberSchema = new Schema<member>(
 const Member = model<member>("Member", MemberSchema);
 
 export default Member;
+export { member };

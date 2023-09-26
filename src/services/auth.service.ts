@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import CustomError from "../errors/custom_error";
 import User, { user } from "../models/User.model";
 import * as argon from "argon2";
+import { omit } from "lodash";
 
 export default {
   async sign(data: any) {
@@ -18,7 +19,16 @@ export default {
     }
   },
   async login(dto: user) {
-    const user = await User.findOne({ email: dto.email });
+    try {
+      const user = await User.findOne({ email: dto.email });
+      const status = await argon.verify(user!.password, dto.password);
+      if (status) {
+        const token = await this.sign(omit(user!.toJSON(), "password"));
+        return { token, ...omit(user!.toJSON(), "password") };
+      }
+    } catch (error: any) {
+      throw new CustomError(error.message, 500);
+    }
   },
   async signup(dto: user) {
     try {
@@ -31,8 +41,12 @@ export default {
       delete newUser.password;
       const token = await this.sign(newUser);
       return { token, ...newUser };
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.code == "E11000") {
+        throw new CustomError("user already exists", 409);
+      } else {
+        throw new CustomError(error.message, 500);
+      }
     }
   },
 };

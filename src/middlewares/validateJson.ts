@@ -12,7 +12,10 @@ const validate =
       });
       return next();
     } catch (e: any) {
-      return res.status(400).send(e.errors);
+      return res.status(400).json({
+        status: "error",
+        message: e.issues[0].message,
+      });
     }
   };
 export default validate;
