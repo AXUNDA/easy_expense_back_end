@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.ts",
     "start": "node build/index.js",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p ."
   },
-  "author": "CharlesEmmanuel",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "argon2": "^0.31.1",
