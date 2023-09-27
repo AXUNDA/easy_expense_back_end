@@ -18,7 +18,7 @@ app.use("/", routes);
 app.use(errorHandler);
 app.use(notFound);
 
-app.listen(8080, async () => {
+app.listen(process.env.Port || 8080, async () => {
   await connect();
   console.log("listening");
 });
