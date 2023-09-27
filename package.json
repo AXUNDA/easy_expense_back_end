@@ -2,11 +2,12 @@
   "name": "easy-expense",
   "version": "1.0.0",
   "description": "Easy expense is a fictitious application which helps organizations track their expense reports.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.ts",
-    "build": "tsc -p ."
+    "start": "node build/index.js",
+    "build": "tsc -p . && cp -r node_modules build/"
   },
   "author": "CharlesEmmanuel",
   "license": "ISC",
