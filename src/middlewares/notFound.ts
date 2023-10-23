@@ -7,6 +7,6 @@ export async function notFound(
 ) {
   return res.status(404).send({
     status: "error",
-    message: "endpoint not found",
+    msg: "endpoint not found",
   });
 }

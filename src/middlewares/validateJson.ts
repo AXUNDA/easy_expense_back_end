@@ -14,7 +14,7 @@ const validate =
     } catch (e: any) {
       return res.status(400).json({
         status: "error",
-        message: e.issues[0].message,
+        msg: e.issues[0].message,
       });
     }
   };
